@@ -1,10 +1,10 @@
 import json
+from . import Util
 
 class SchemaManager:
   def __init__(self, base_path = None):
     self.base_path = base_path
     self.schemas = {}
-    self.base_types = ["string", "integer", "float", "boolean"]
   
   def load(self, name):
     file = open(self.base_path + name + '.json', 'r')
@@ -17,7 +17,7 @@ class SchemaManager:
     for field_name in schema['fields']:
       field = schema['fields'][field_name]
       field_type = field["type"]
-      if field_type in self.base_types:
+      if field_type in Util.get_base_types():
         continue
       if field_type not in self.schemas.keys():
         self.load(field_type)
