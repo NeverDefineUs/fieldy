@@ -2,7 +2,7 @@
   "typename": "composed",
   "fields": {
     "simple": {
-      "type": "simple",
+      "type": "[simple]",
       "required": true,
       "field_info": {},
       "default": null
