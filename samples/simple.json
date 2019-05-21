@@ -18,6 +18,12 @@
       "required": false,
       "field_info": {},
       "default": null
+    },
+    "dt": {
+      "type": "date",
+      "required": false,
+      "field_info": {},
+      "default": null
     }
   }
 }

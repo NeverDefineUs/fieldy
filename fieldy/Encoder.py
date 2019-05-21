@@ -1,5 +1,6 @@
 from fieldy import Util
 from fieldy.Ent import Ent
+from datetime import datetime
 
 class Encoder:
   def __init__(self, schema_manager):
@@ -49,6 +50,11 @@ class Encoder:
             setattr(obj, field_name, bool(field_value))
           except:
             raise Exception('Field {} should be a boolean'.format(field_name))
+        if field_type == "date":
+          try:
+            setattr(obj, field_name, datetime.strptime(field_value, '%Y-%m-%d'))
+          except:
+            raise Exception('Field {} should be a date'.format(field_name))
       else:
         try:
           setattr(obj, field_name, self.to_object(field_value, schema['fields'][field_name]['type']))
