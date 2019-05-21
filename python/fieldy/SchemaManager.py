@@ -1,5 +1,5 @@
 import json
-from . import Util
+from fieldy import Util
 
 class SchemaManager:
   def __init__(self, base_path = None):

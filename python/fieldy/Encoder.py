@@ -1,5 +1,5 @@
-from . import Util
-from . import Ent
+from fieldy import Util
+from fieldy.Ent import Ent
 
 class Encoder:
   def __init__(self, schema_manager):
@@ -20,7 +20,7 @@ class Encoder:
           raise Exception('Missing required field: {}'.field_name)
         continue
       field_type = field["type"]
-      obj = Ent.Ent()
+      obj = Ent()
       if field_type in Util.get_base_types():
         if field_type == "string":
           try:
