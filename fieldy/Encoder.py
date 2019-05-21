@@ -13,38 +13,45 @@ class Encoder:
       field = entry[field_name]
       if field_name not in schema['fields'].keys():
         raise Exception('Field {} not defined in schema'.format(field_name))
+    obj = Ent()
     for field_name in schema['fields'].keys():
       field = schema['fields'][field_name]
+      field_value = field["default"]
       if field_name not in entry.keys():
         if field["required"]:
           raise Exception('Missing required field: {}'.field_name)
+      else:
+        field_value = entry[field_name]
+      if field_value == None:
+        if field["required"]:
+          raise Exception('Missing required field: {}'.field_name)
+        setattr(obj, field_name, None)
         continue
       field_type = field["type"]
-      obj = Ent()
       if field_type in Util.get_base_types():
         if field_type == "string":
           try:
-            setattr(obj, field_name, str(entry[field_name]))
+            setattr(obj, field_name, str(field_value))
           except:
             raise Exception('Field {} should be a string'.format(field_name))
         if field_type == "integer":
           try:
-            setattr(obj, field_name, int(entry[field_name]))
+            setattr(obj, field_name, int(field_value))
           except:
             raise Exception('Field {} should be a integer'.format(field_name))
         if field_type == "float":
           try:
-            setattr(obj, field_name, float(entry[field_name]))
+            setattr(obj, field_name, float(field_value))
           except:
             raise Exception('Field {} should be a float'.format(field_name))
         if field_type == "boolean":
           try:
-            setattr(obj, field_name, bool(entry[field_name]))
+            setattr(obj, field_name, bool(field_value))
           except:
             raise Exception('Field {} should be a boolean'.format(field_name))
       else:
         try:
-          setattr(obj, field_name, self.to_object(entry[field_name], schema['fields'][field_name]['type']))
+          setattr(obj, field_name, self.to_object(field_value, schema['fields'][field_name]['type']))
         except Exception as exc:
           raise Exception('Error on field {}: ({})'.format(field_name, str(exc)))
     return obj
