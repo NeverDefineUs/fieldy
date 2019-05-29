@@ -3,7 +3,7 @@
 from fieldy import SchemaManager, Encoder
 import fieldy, sys, json
 
-scm = SchemaManager(str(fieldy.__file__)[:-11]+'/definition/')
+scm = SchemaManager(str(fieldy.__file__)[:-11]+'definition/')
 enc = Encoder(scm)
 str(fieldy.__file__)
 scm.load('type')
