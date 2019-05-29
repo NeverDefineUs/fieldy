@@ -17,7 +17,7 @@ class SchemaManager:
     for field_name in schema['fields']:
       field = schema['fields'][field_name]
       field_type = field["type"]
-      while field_type[0] == "[" and field_type[-1] == "]":
+      while (field_type[0] == "[" and field_type[-1] == "]") or (field_type[0] == "{" and field_type[-1] == "}"):
         field_type = field_type[1:-1]
       if field_type in Util.get_base_types():
         continue

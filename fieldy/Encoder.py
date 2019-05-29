@@ -15,6 +15,19 @@ class Encoder:
         elem = field_value[ind]
         arr.append(self.parse_field(elem, field_type[1:-1], '{}[{}]'.format(field_name, ind)))
       return arr
+    if field_type[0] == '{' and field_type[-1] == '}':
+      field_type = field_type[1:-1]
+      val = {}
+      if type(field_value) != dict:
+        raise Exception('Field {} should be a dict'.format(field_name))
+      for key in field_value:
+        key = str(key)
+        try: 
+          field_value[key]
+        except:
+          raise Exception("Key should be a string in {}.".format(field_name))
+        val[key] = self.parse_field(field_value[key], field_type, '{}{{{}}}'.format(field_name, key))
+      return val
     if field_type in Util.get_base_types():
       if field_type == "string":
         try:
@@ -41,6 +54,8 @@ class Encoder:
           return datetime.strptime(field_value, '%Y-%m-%d')
         except:
           raise Exception('Field {} should be a date'.format(field_name))
+      if field_type == "any":
+        return field_value
     else:
       try:
         return self.to_object(field_value, field_type)
@@ -72,3 +87,10 @@ class Encoder:
       field_type = field["type"]
       setattr(obj, field_name, self.parse_field(field_value, field_type, field_name))
     return obj
+  
+  def validate_dict(self, dic, tp):
+    try:
+      self.to_object(dic, tp)
+      return True
+    except:
+      return False
