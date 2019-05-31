@@ -1,4 +1,4 @@
 dist/
 MANIFEST
 build/
-fieldy/__pycache__/
+__pycache__/

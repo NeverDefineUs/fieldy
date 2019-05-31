@@ -1,8 +1,11 @@
-from distutils.core import setup
+# from distutils.core import setup
+from setuptools import setup
+import setuptools
 setup(
-  name = 'fieldy',         
-  packages = ['fieldy'],   
-  version = '0.4.2',      
+  name = 'fieldy',        
+  packages=setuptools.find_packages(),
+  package_data = {'fieldy': ['definition/*.json']},
+  version = '0.5.0',      
   license='MIT',      
   include_package_data=True,
   description = 'Lib to help structure objects from jsons',   
@@ -10,7 +13,7 @@ setup(
   author_email = 'arthurlpgc@gmail.com',      
   scripts = ['bin/fieldy'],
   url = 'https://github.com/NeverDefineUs/fieldy',   
-  download_url = 'https://github.com/NeverDefineUs/fieldy/archive/0.4.2.tar.gz',    
+  download_url = 'https://github.com/NeverDefineUs/fieldy/archive/0.5.0.tar.gz',    
   keywords = ['SOME', 'MEANINGFULL', 'KEYWORDS'],   
   classifiers=[
     'Development Status :: 3 - Alpha',      
